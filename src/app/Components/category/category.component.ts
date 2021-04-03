@@ -20,7 +20,6 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getCategories()
     .subscribe(response=>{
       this.categories=response.data
-      console.log(response.data)
     })
   }
   //Amaç istedigimiz categoriye tıklayınca categorinin elemanlarını getirmek.

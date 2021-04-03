@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/Models/product';
+import { CartService } from 'src/app/Services/cart.service';
 import { ProductService } from 'src/app/Services/product.service';
 
 @Component({
@@ -13,8 +15,10 @@ export class ProductComponent implements OnInit {
 
   products:Product[] = [];
   dataloaded = false;
+  filterText= "";
+  
    //private yaparsa sadece bu classde gecerli. Yani product.httpClient yazılamaz.
-  constructor(private productsService:ProductService, private activatedRoute:ActivatedRoute) { }
+  constructor(private productsService:ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService, private cartService:CartService) { }
   //Ctor yapısı calısınca direk calısır. Ama ctor yaısı sadece insalitize etmek icin kullanılan bir yapı. Newleme yapılır burayla karıstırma ama mantık ozunde benzer.
   //ngonit component i don yerleştirir.
   ngOnInit(): void {
@@ -44,5 +48,9 @@ export class ProductComponent implements OnInit {
       this.products = response.data;
       this.dataloaded=true; 
     });
+  }
+  addToCart(product:Product){
+    this.toastrService.success("sepete eklendi", product.productName)
+    this.cartService.addToCart(product);
   }
 }
