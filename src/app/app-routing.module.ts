@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './Components/login/login.component';
+import { ProductAddComponent } from './Components/product-add/product-add.component';
 import { ProductComponent } from './Components/product/product.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   //path arama cubuguna yazdıgın deger. bos ise default olarak ne donsundur. products ise sonunda products ekleyince ne donecegi. 
   //pathmatch full ana sayfa ile eşit olucak başka bir sayfa acılınca olmasın yani sen aslında products yazdıgında da bosu kapsar.
   {path:"",pathMatch:"full", component:ProductComponent},
   {path:"products", component:ProductComponent},
-  {path:"products/category/:categoryId", component:ProductComponent}
+  {path:"products/category/:categoryId", component:ProductComponent},
+  {path:"products/add", component:ProductAddComponent, canActivate:[LoginGuard]},
+  {path:"login", component:LoginComponent}
 ];
 
 @NgModule({
